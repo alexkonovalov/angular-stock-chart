@@ -1,5 +1,4 @@
-app
-    .service('dataProviderService', function () {
+app.service("dataProviderService", function () {
 
         //mock method for returning fake data
         this.GetStockData = function(dateFrom, dateTo) {

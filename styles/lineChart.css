@@ -1,5 +1,4 @@
-
-path { 
+path {
     stroke: steelblue;
     stroke-width: 2;
     fill: none;
@@ -15,17 +14,4 @@ path {
 
 .axis text {
     fill: #ffffff;
-}
-
-body{
-    padding: 25px 0 0 0;
-    background: #36363F;
-}
-
-.axisButtons{
-    margin-bottom: 20px;
-}
-
-.container{
-    width:650px;
 }

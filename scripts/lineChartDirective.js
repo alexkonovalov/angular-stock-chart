@@ -1,4 +1,4 @@
-app.directive('lineChart', function ($parse) {
+app.directive("lineChart", ["$parse", function ($parse) {
        var directiveDefinitionObject = {
            restrict: 'E',
            replace: false,
@@ -72,4 +72,4 @@ app.directive('lineChart', function ($parse) {
            }
        };
        return directiveDefinitionObject;
-   });
+   }]);

@@ -1,5 +1,5 @@
 
-app.controller("stockChartController", function ($scope, dataProviderService/**/) {
+app.controller("stockChartController", ["$scope", "dataProviderService", function ($scope, dataProviderService) {
 
     $scope.shownRange = 'max';
     $scope.shownValueProp = 'yield';
@@ -80,4 +80,4 @@ app.controller("stockChartController", function ($scope, dataProviderService/**/
     }
 
 
-});
+}]);
