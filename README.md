@@ -1,5 +1,6 @@
 # Angular Stock Chart
 Stock Chart that utilizes Angular, D3.js and Bootstrap. 
+[Demo](http://alexkonovalov.github.io/angular-stock-chart/)
 
 ###To load all dependencies 
 
@@ -12,3 +13,11 @@ npm install
 ```bash
 npm test
 ```
+
+
+###To build
+
+```bash
+grunt
+```
+
