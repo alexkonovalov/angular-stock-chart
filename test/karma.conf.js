@@ -6,10 +6,10 @@ module.exports = function(config){
     files : [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      'scripts/app.js',
-	  'scripts/dataProviderService.js',
-	  'scripts/lineChartDirective.js',
-	  'scripts/stockChartController.js',
+      '../src/scripts/app.js',
+	  '../src/scripts/dataProviderService.js',
+	  '../src/scripts/lineChartDirective.js',
+	  '../src/scripts/stockChartController.js',
       'test/unit/*.js'
     ],
 

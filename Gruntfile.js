@@ -1,14 +1,24 @@
 
 module.exports = function(grunt) {
 
+    var globalConfig = {
+        source: 'src',
+        output: 'dist',
+        sourceScripts: "src/scripts",
+        sourceStyles: "src/styles",
+        scriptsCompiledFileName: "scripts",
+        stylesCompiledFileName: "styles"
+    };
+
     grunt.initConfig({
+        globalConfig: globalConfig,
         bowercopy: {
             options: {
                 srcPrefix: "bower_components"
             },
             scripts: {
                 options: {
-                    destPrefix: "dist"
+                    destPrefix: "<%= globalConfig.output %>"
                 },
                 files: {
                     "angular.min.js": "angular/angular.min.js",
@@ -21,15 +31,15 @@ module.exports = function(grunt) {
         },
         "gh-pages": {
             options: {
-                base: "dist"
+                base: "<%= globalConfig.output %>"
             },
             src: ['**']
         },
         copy: {
             files: {
-                cwd: "tmpl",
+                cwd: "src",
                 src: "index.html",
-                dest: "dist",
+                dest: "<%= globalConfig.output %>",
                 expand: true
             }
         },
@@ -38,15 +48,18 @@ module.exports = function(grunt) {
                 options: {
                     separator: ";\n",
                 },
-                src: ["scripts/app.js", "scripts/dataProviderService.js","scripts/stockChartController.js", "scripts/lineChartDirective.js"],
-                dest: "dist/scripts.js",
+                src: [  "<%= globalConfig.sourceScripts %>/app.js",
+                        "<%= globalConfig.sourceScripts %>/dataProviderService.js",
+                        "<%= globalConfig.sourceScripts %>/stockChartController.js",
+                        "<%= globalConfig.sourceScripts %>/lineChartDirective.js"],
+                dest: "<%= globalConfig.output %>/<%= globalConfig.scriptsCompiledFileName %>.js",
             },
             csstarget: {
                 options: {
                     separator: "\n",
                 },
-                src: ["styles/main.css", "styles/lineChart.css"],
-                dest: "dist/styles.css",
+                src: ["<%= globalConfig.sourceStyles %>/main.css", "<%= globalConfig.sourceStyles %>/lineChart.css"],
+                dest: "<%= globalConfig.output %>/<%= globalConfig.stylesCompiledFileName %>.css",
             },
         },
         uglify: {
@@ -56,8 +69,8 @@ module.exports = function(grunt) {
                 sourceMap: true
             },
             jstarget: {
-                src: "dist/scripts.js",
-                dest: "dist/scripts.min.js"
+                src: "<%= globalConfig.output %>/<%= globalConfig.scriptsCompiledFileName %>.js",
+                dest: "<%= globalConfig.output %>/<%= globalConfig.scriptsCompiledFileName %>.min.js"
             }
         }
     });
@@ -69,4 +82,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-bowercopy");
 
     grunt.registerTask("default", ["concat", "uglify", "copy", "bowercopy"]);
+    grunt.registerTask("publish", ["concat", "uglify", "copy", "bowercopy", "gh-pages"])
+
 };
