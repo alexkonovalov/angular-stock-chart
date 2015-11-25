@@ -6,34 +6,17 @@ module.exports = function(grunt) {
         source: 'src',
         sourceScripts: "src/scripts",
         sourceStyles: "src/styles",
-        scriptsDestFileName: "scripts",
-        stylesDestFileName: "styles"
+        buildDestFileName: "main",
+        vendorDestFileName: "vendor",
+        vendorSourceDir: "bower_components"
     };
 
     grunt.initConfig({
         globalConfig: globalConfig,
         processhtml: {
             dist: {
-
                 files: {
                     '<%= globalConfig.output %>/index.html': '<%= globalConfig.source %>/index.html'
-                }
-            }
-        },
-        bowercopy: {
-            options: {
-                srcPrefix: "bower_components"
-            },
-            scripts: {
-                options: {
-                    destPrefix: "<%= globalConfig.output %>"
-                },
-                files: {
-                    "angular.min.js": "angular/angular.min.js",
-                    "d3.min.js": "d3/d3.min.js",
-                    "jquery.min.js": "jquery/dist/jquery.min.js",
-                    "bootstrap.min.js": "bootstrap/dist/js/bootstrap.min.js",
-                    "cosmo.min.css": "bootstrap-theme-cosmo/cosmo.min.css"
                 }
             }
         },
@@ -44,7 +27,18 @@ module.exports = function(grunt) {
             src: ['**']
         },
         concat: {
-            jstarget: {
+            vendorJsTarget: {
+                options: {
+                    separator: ";\n"
+                },
+                src: [
+                    "<%= globalConfig.vendorSourceDir %>/angular/angular.min.js",
+                    "<%= globalConfig.vendorSourceDir %>/d3/d3.min.js",
+                    "<%= globalConfig.vendorSourceDir %>/jquery/dist/jquery.min.js",
+                    "<%= globalConfig.vendorSourceDir %>/bootstrap/dist/js/bootstrap.min.js"],
+                dest: "<%= globalConfig.output %>/<%= globalConfig.vendorDestFileName %>.js"
+            },
+            buildJsTarget: {
                 options: {
                     separator: ";\n"
                 },
@@ -52,14 +46,22 @@ module.exports = function(grunt) {
                         "<%= globalConfig.sourceScripts %>/dataProviderService.js",
                         "<%= globalConfig.sourceScripts %>/stockChartController.js",
                         "<%= globalConfig.sourceScripts %>/lineChartDirective.js"],
-                dest: "<%= globalConfig.output %>/<%= globalConfig.scriptsDestFileName %>.js"
+                dest: "<%= globalConfig.output %>/<%= globalConfig.buildDestFileName %>.js"
             },
-            csstarget: {
+            buildCssTarget: {
                 options: {
                     separator: "\n"
                 },
-                src: ["<%= globalConfig.sourceStyles %>/main.css", "<%= globalConfig.sourceStyles %>/lineChart.css"],
-                dest: "<%= globalConfig.output %>/<%= globalConfig.stylesDestFileName %>.css"
+                src: [  "<%= globalConfig.sourceStyles %>/main.css",
+                        "<%= globalConfig.sourceStyles %>/lineChart.css"],
+                dest: "<%= globalConfig.output %>/<%= globalConfig.buildDestFileName %>.css"
+            },
+           vendorCssTarget: {
+                options: {
+                    separator: "\n"
+                },
+                src: [  "<%= globalConfig.vendorSourceDir %>/bootstrap-theme-cosmo/cosmo.min.css"],
+                dest: "<%= globalConfig.output %>/<%= globalConfig.vendorDestFileName %>.css"
             }
         },
         uglify: {
@@ -69,8 +71,19 @@ module.exports = function(grunt) {
                 sourceMap: true
             },
             jstarget: {
-                src: "<%= globalConfig.output %>/<%= globalConfig.scriptsDestFileName %>.js",
-                dest: "<%= globalConfig.output %>/<%= globalConfig.scriptsDestFileName %>.min.js"
+                src: "<%= globalConfig.output %>/<%= globalConfig.buildDestFileName %>.js",
+                dest: "<%= globalConfig.output %>/<%= globalConfig.buildDestFileName %>.min.js"
+            }
+        },
+        cssmin: {
+            target: {
+                files: [{
+                    expand: true,
+                    cwd: '<%= globalConfig.output %>',
+                    src: ['main.css'],
+                    dest: '<%= globalConfig.output %>',
+                    ext: '.min.css'
+                }]
             }
         }
     });
@@ -79,10 +92,11 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-gh-pages");
     grunt.loadNpmTasks("grunt-contrib-concat");
     grunt.loadNpmTasks("grunt-contrib-uglify");
-    grunt.loadNpmTasks("grunt-bowercopy");
     grunt.loadNpmTasks("grunt-processhtml");
+    grunt.loadNpmTasks("grunt-contrib-cssmin");
 
-    grunt.registerTask("default", ["concat", "uglify", "bowercopy", "processhtml"]);
+
+    grunt.registerTask("default", ["concat", "uglify", "cssmin", "processhtml"]);
     grunt.registerTask("publish", ["default", "gh-pages"])
 
 };
