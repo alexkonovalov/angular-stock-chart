@@ -1,6 +1,6 @@
-# Angular Stock Chart
+# Angular Stock Chart [Demo](http://alexkonovalov.github.io/angular-stock-chart/)
 Stock Chart that utilizes Angular, D3.js and Bootstrap. 
-#[Demo](http://alexkonovalov.github.io/angular-stock-chart/)
+
 
 Unit tests run on Karma with the aid of Jasmine
 
