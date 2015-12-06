@@ -6,10 +6,10 @@ module.exports = function(config){
     files : [
       'bower_components/angular/angular.js',
       'bower_components/angular-mocks/angular-mocks.js',
-      '../src/scripts/app.js',
-	  '../src/scripts/dataProviderService.js',
-	  '../src/scripts/lineChartDirective.js',
-	  '../src/scripts/stockChartController.js',
+      'src/scripts/app.js',
+	  'src/scripts/dataProviderService.js',
+	  'src/scripts/lineChartDirective.js',
+	  'src/scripts/stockChartController.js',
       'test/unit/*.js'
     ],
 
@@ -17,11 +17,11 @@ module.exports = function(config){
 
     frameworks: ['jasmine'],
 
-    browsers : ['Chrome', 'Firefox'],
+    browsers : ['Chrome'/*, 'Firefox'*/],
 
     plugins : [
             'karma-chrome-launcher',
-            'karma-firefox-launcher',
+            /*'karma-firefox-launcher',*/
             'karma-jasmine'
             ],
 

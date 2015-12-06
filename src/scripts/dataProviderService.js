@@ -4,7 +4,7 @@ app.service("dataProviderService", function () {
         this.GetStockData = function(dateFrom, dateTo) {
 
             var data = [
-               {  date: 'Jan 01, 2014', yield: 170.3, spread: 29.04, price: 24.39 },
+                { date: 'Jan 01, 2014', yield: 170.3, spread: 29.04, price: 24.39 },
                 { date: 'Jan 02, 2014', yield: 160.8, spread: 67.82, price: 97.13 },
                 { date: 'Jan 03, 2014', yield: 147.87, spread: 179.85, price: 125.82 },
                 { date: 'Jan 04, 2014', yield: 11.7, spread: 91.62, price: 177.51 },

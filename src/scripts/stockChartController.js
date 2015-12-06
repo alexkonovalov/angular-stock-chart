@@ -1,8 +1,8 @@
 
 app.controller("stockChartController", ["$scope", "dataProviderService", function ($scope, dataProviderService) {
 
-    $scope.shownRange = 'max';
-    $scope.shownValueProp = 'yield';
+    $scope.shownRange = "max";
+    $scope.shownValueProp = "yield";
     $scope.chartData = [];
 
     var getDataForChart = function(valueProp, range) {
@@ -57,20 +57,18 @@ app.controller("stockChartController", ["$scope", "dataProviderService", functio
     }
 
 
-
-
     $scope.showYield = function() {
-        $scope.shownValueProp = 'yield';
+        $scope.shownValueProp = "yield";
         $scope.chartData = getDataForChart($scope.shownValueProp, $scope.shownRange);
     }
 
     $scope.showSpread = function() {
-        $scope.shownValueProp = 'spread';
+        $scope.shownValueProp = "spread";
         $scope.chartData = getDataForChart($scope.shownValueProp, $scope.shownRange);
     }
 
     $scope.showPrice = function() {
-        $scope.shownValueProp = 'price';
+        $scope.shownValueProp = "price";
         $scope.chartData = getDataForChart($scope.shownValueProp, $scope.shownRange);
     }
 
