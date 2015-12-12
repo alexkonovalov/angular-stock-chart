@@ -64,6 +64,11 @@ module.exports = function(grunt) {
                 dest: "<%= globalConfig.output %>/<%= globalConfig.vendorDestFileName %>.css"
             }
         },
+        clean: {
+            build: ["<%= globalConfig.output %>"],
+            js: ["<%= globalConfig.output %>/*.js" , "!<%= globalConfig.output %>/*.min.js", "!<%= globalConfig.output %>/vendor.js" ],
+            css: ["<%= globalConfig.output %>/*.css" , "!<%= globalConfig.output %>/*.min.css", "!<%= globalConfig.output %>/vendor.css"]
+        },
         uglify: {
             options: {
                 compress: true,
@@ -94,9 +99,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks("grunt-contrib-uglify");
     grunt.loadNpmTasks("grunt-processhtml");
     grunt.loadNpmTasks("grunt-contrib-cssmin");
+    grunt.loadNpmTasks('grunt-contrib-clean');
 
-
-    grunt.registerTask("default", ["concat", "uglify", "cssmin", "processhtml"]);
+    grunt.registerTask("default", ["clean:build", "concat", "uglify", "cssmin", "clean:js", "clean:css", "processhtml"]);
     grunt.registerTask("publish", ["default", "gh-pages"])
 
 };
